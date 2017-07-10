@@ -46,7 +46,8 @@ namespace AsterNET.Manager
 	public delegate void LogChannelEventHandler(object sender, Event.LogChannelEvent e);
 	public delegate void MeetMeJoinEventHandler(object sender, Event.MeetmeJoinEvent e);
 	public delegate void MeetMeLeaveEventHandler(object sender, Event.MeetmeLeaveEvent e);
-	public delegate void MeetMeTalkingEventHandler(object sender, Event.MeetmeTalkingEvent e);
+    public delegate void MeetMeMuteEventHandler(object sender, Event.MeetmeMuteEvent e);
+    public delegate void MeetMeTalkingEventHandler(object sender, Event.MeetmeTalkingEvent e);
 	public delegate void MessageWaitingEventHandler(object sender, Event.MessageWaitingEvent e);
 	public delegate void NewCallerIdEventHandler(object sender, Event.NewCallerIdEvent e);
 	public delegate void NewChannelEventHandler(object sender, Event.NewChannelEvent e);
@@ -282,12 +283,23 @@ namespace AsterNET.Manager
 		/// A MeetMeLeave is triggered if a channel leaves a meet me conference.<br/>
 		/// </summary>
 		public event MeetMeLeaveEventHandler MeetMeLeave;
-		// public event MeetMeStopTalkingEventHandler MeetMeStopTalking;
-		/// <summary>
-		/// A MeetMeTalkingEvent is triggered when a user starts talking in a meet me conference.<br/>
-		/// To enable talker detection you must pass the option 'T' to the MeetMe application.
-		/// </summary>
-		public event MeetMeTalkingEventHandler MeetMeTalking;
+        // public event MeetMeStopTalkingEventHandler MeetMeStopTalking;
+        /// <summary>
+        /// A MeetMeTalkingEvent is triggered when a user starts talking in a meet me conference.<br/>
+        /// To enable talker detection you must pass the option 'T' to the MeetMe application.
+        /// </summary>
+        /// 
+
+        public event MeetMeMuteEventHandler MeetMeMute;
+        // public event MeetMeMuteEventHandler MeetMeMute;
+        /// <summary>
+        /// A MeetMeTalkingEvent is triggered when a user starts talking in a meet me conference.<br/>
+        /// To enable talker detection you must pass the option 'T' to the MeetMe application.
+        /// </summary>
+
+
+
+        public event MeetMeTalkingEventHandler MeetMeTalking;
 		/// <summary>
 		/// A MessageWaiting is triggered when someone leaves voicemail.<br/>
 		/// </summary>
@@ -521,7 +533,9 @@ namespace AsterNET.Manager
 			Helper.RegisterEventHandler(registeredEventHandlers, 14, typeof(DBGetResponseEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 15, typeof(DialEvent));
 
-			Helper.RegisterEventHandler(registeredEventHandlers, 17, typeof(DNDStateEvent));
+            Helper.RegisterEventHandler(registeredEventHandlers, 16, typeof(MeetmeMuteEvent));
+
+            Helper.RegisterEventHandler(registeredEventHandlers, 17, typeof(DNDStateEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 18, typeof(ExtensionStatusEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 19, typeof(HangupEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 20, typeof(HoldedCallEvent));
@@ -852,9 +866,16 @@ namespace AsterNET.Manager
 							return;
 						}
 						break;
-					#endregion
-					#region M-P
-					case 26:
+                    #endregion
+                    #region M-P
+                    case 16:
+                        if (MeetMeMute != null)
+                        {
+                            MeetMeMute(this, (MeetmeMuteEvent)e);
+                            return;
+                        }
+                        break;
+                    case 26:
 						if (MeetMeJoin != null)
 						{
 							MeetMeJoin(this, (MeetmeJoinEvent)e);
