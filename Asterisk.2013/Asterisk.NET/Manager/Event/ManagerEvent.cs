@@ -20,6 +20,7 @@ namespace AsterNET.Manager.Event
 
 		private string uniqueId;
 		private string channel;
+        private string m_interface;
 		private ManagerConnection src;
 		protected Dictionary<string, string> attributes;
 
@@ -123,6 +124,8 @@ namespace AsterNET.Manager.Event
 		}
 		#endregion
 
+
+
 		#region Channel 
 		/// <summary>
 		/// Get/Set the name of the channel.
@@ -132,17 +135,28 @@ namespace AsterNET.Manager.Event
 			get { return channel; }
 			set { this.channel = value; }
 		}
-		#endregion
+        #endregion
 
 
-		#region Parse(string key, string value) 
-		/// <summary>
-		/// Unknown properties parser
-		/// </summary>
-		/// <param name="key">key name</param>
-		/// <param name="value">key value</param>
-		/// <returns>true - value parsed, false - can't parse value</returns>
-		public virtual bool Parse(string key, string value)
+        #region Interface
+        /// <summary>
+        /// Get/Set the name of the interface
+        /// </summary>
+        public string Interface
+        {
+            get { return m_interface; }
+            set { this.m_interface = value; }
+        }
+        # endregion
+
+        #region Parse(string key, string value) 
+        /// <summary>
+        /// Unknown properties parser
+        /// </summary>
+        /// <param name="key">key name</param>
+        /// <param name="value">key value</param>
+        /// <returns>true - value parsed, false - can't parse value</returns>
+        public virtual bool Parse(string key, string value)
 		{
 			if (attributes == null)
 				attributes = new Dictionary<string, string>();

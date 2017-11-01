@@ -12,6 +12,7 @@ namespace AsterNET.Manager.Event
         {
         }
 
+
         public string Queue { get; set; }
 
         public string AgentName { get; set; }
