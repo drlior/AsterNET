@@ -91,5 +91,15 @@ namespace AsterNET.WinForm
         {
             
         }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
