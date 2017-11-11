@@ -64,7 +64,7 @@ namespace AsterNET.Manager
 	public delegate void QueueEntryEventHandler(object sender, Event.QueueEntryEvent e);
 	public delegate void QueueMemberAddedEventHandler(object sender, Event.QueueMemberAddedEvent e);
 	public delegate void QueueMemberEventHandler(object sender, Event.QueueMemberEvent e);
-	public delegate void QueueMemberPausedEventHandler(object sender, Event.QueueMemberPausedEvent e);
+	public delegate void QueueMemberPausedEventHandler(object sender, Event.QueueMemberPauseEvent e);
 	public delegate void QueueMemberRemovedEventHandler(object sender, Event.QueueMemberRemovedEvent e);
 	public delegate void QueueMemberStatusEventHandler(object sender, Event.QueueMemberStatusEvent e);
 	public delegate void QueueParamsEventHandler(object sender, Event.QueueParamsEvent e);
@@ -74,7 +74,8 @@ namespace AsterNET.Manager
 	public delegate void TransferEventHandler(object sender, Event.TransferEvent e);
 	public delegate void StatusCompleteEventHandler(object sender, Event.StatusCompleteEvent e);
 	public delegate void StatusEventHandler(object sender, Event.StatusEvent e);
-	public delegate void UnholdEventHandler(object sender, Event.UnholdEvent e);
+    public delegate void RTCPSentEventHandler(object sender, Event.RTCPSentEvent e);
+    public delegate void UnholdEventHandler(object sender, Event.UnholdEvent e);
 	public delegate void UnlinkEventHandler(object sender, Event.UnlinkEvent e);
 	public delegate void UnparkedCallEventHandler(object sender, Event.UnparkedCallEvent e);
 	public delegate void UserEventHandler(object sender, Event.UserEvent e);
@@ -407,14 +408,22 @@ namespace AsterNET.Manager
 		/// A RenameEvent is triggered when the name of a channel is changed.
 		/// </summary>
 		public event RenameEventHandler Rename;
-		/// <summary>
-		/// A StatusCompleteEvent is triggered after the state of all channels has been reported in response to a StatusAction.
-		/// </summary>
-		public event StatusCompleteEventHandler StatusComplete;
-		/// <summary>
-		/// A StatusEvent is triggered for each active channel in response to a StatusAction.
-		/// </summary>
-		public event StatusEventHandler Status;
+        /// <summary>
+        /// A StatusCompleteEvent is triggered after the state of all channels has been reported in response to a StatusAction.
+        /// </summary>
+        public event StatusCompleteEventHandler StatusComplete;
+
+        /// <summary>
+        /// RTCPSentEvent
+        /// </summary>
+        public event RTCPSentEventHandler RTCPSent;
+
+
+
+        /// <summary>
+        /// A StatusEvent is triggered for each active channel in response to a StatusAction.
+        /// </summary>
+        public event StatusEventHandler Status;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -563,7 +572,7 @@ namespace AsterNET.Manager
 			Helper.RegisterEventHandler(registeredEventHandlers, 42, typeof(QueueEntryEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 43, typeof(QueueMemberAddedEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 44, typeof(QueueMemberEvent));
-			Helper.RegisterEventHandler(registeredEventHandlers, 45, typeof(QueueMemberPausedEvent));
+			Helper.RegisterEventHandler(registeredEventHandlers, 45, typeof(QueueMemberPauseEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 46, typeof(QueueMemberRemovedEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 47, typeof(QueueMemberStatusEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 48, typeof(QueueParamsEvent));
@@ -590,6 +599,7 @@ namespace AsterNET.Manager
 			Helper.RegisterEventHandler(registeredEventHandlers, 64, typeof(TransferEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 65, typeof(DTMFEvent));
 
+            Helper.RegisterEventHandler(registeredEventHandlers, 69, typeof(RTCPSentEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 70, typeof(VarSetEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 80, typeof(AGIExecEvent));
 
@@ -1013,7 +1023,7 @@ namespace AsterNET.Manager
 					case 45:
 						if (QueueMemberPaused != null)
 						{
-							QueueMemberPaused(this, (QueueMemberPausedEvent)e);
+							QueueMemberPaused(this, (QueueMemberPauseEvent)e);
 							return;
 						}
 						break;
@@ -1149,6 +1159,12 @@ namespace AsterNET.Manager
 							DTMF(this, (DTMFEvent)e);
 						}
 						break;
+                    case 69:
+                        if (RTCPSent != null)
+                        {
+                            RTCPSent(this, (RTCPSentEvent)e);
+                        }
+                        break;
 					case 70:
 						if (VarSet != null)
 						{

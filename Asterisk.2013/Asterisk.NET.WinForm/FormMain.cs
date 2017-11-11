@@ -86,5 +86,10 @@ namespace AsterNET.WinForm
 			}
 			btnDisconnect.Enabled = false;
 		}
-	}
+
+        private void txtExtension_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+    }
 }

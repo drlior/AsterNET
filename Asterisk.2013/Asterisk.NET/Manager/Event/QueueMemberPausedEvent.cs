@@ -5,7 +5,7 @@ namespace AsterNET.Manager.Event
 	/// It is implemented in apps/app_queue.c.<br/>
 	/// Available since Asterisk 1.2
 	/// </summary>
-	public class QueueMemberPausedEvent : AbstractQueueMemberEvent
+	public class QueueMemberPauseEvent : AbstractQueueMemberEvent
 	{
 		private string memberName;
 		private bool paused;
@@ -37,7 +37,7 @@ namespace AsterNET.Manager.Event
 			get { return this.reason; }
 			set { this.reason = value; }
 		}
-		public QueueMemberPausedEvent(ManagerConnection source)
+		public QueueMemberPauseEvent(ManagerConnection source)
 			: base(source)
 		{
 		}

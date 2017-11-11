@@ -40,6 +40,8 @@ namespace AsterNET.WinForm
             this.label2 = new System.Windows.Forms.Label();
             this.tbPort = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.txtExtension = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +58,7 @@ namespace AsterNET.WinForm
             // tbAddress
             // 
             this.tbAddress.Location = new System.Drawing.Point(188, 37);
-            this.tbAddress.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbAddress.Margin = new System.Windows.Forms.Padding(6);
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(196, 31);
             this.tbAddress.TabIndex = 1;
@@ -75,9 +77,9 @@ namespace AsterNET.WinForm
             this.groupBox1.Controls.Add(this.lable1);
             this.groupBox1.Controls.Add(this.tbAddress);
             this.groupBox1.Location = new System.Drawing.Point(2, 2);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
             this.groupBox1.Size = new System.Drawing.Size(400, 288);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
@@ -87,7 +89,7 @@ namespace AsterNET.WinForm
             // 
             this.btnDisconnect.Enabled = false;
             this.btnDisconnect.Location = new System.Drawing.Point(188, 237);
-            this.btnDisconnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnDisconnect.Margin = new System.Windows.Forms.Padding(6);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(200, 44);
             this.btnDisconnect.TabIndex = 9;
@@ -98,7 +100,7 @@ namespace AsterNET.WinForm
             // btnConnect
             // 
             this.btnConnect.Location = new System.Drawing.Point(18, 237);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnConnect.Margin = new System.Windows.Forms.Padding(6);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(150, 44);
             this.btnConnect.TabIndex = 8;
@@ -129,7 +131,7 @@ namespace AsterNET.WinForm
             // tbUser
             // 
             this.tbUser.Location = new System.Drawing.Point(188, 137);
-            this.tbUser.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbUser.Margin = new System.Windows.Forms.Padding(6);
             this.tbUser.Name = "tbUser";
             this.tbUser.Size = new System.Drawing.Size(196, 31);
             this.tbUser.TabIndex = 5;
@@ -138,7 +140,7 @@ namespace AsterNET.WinForm
             // tbPassword
             // 
             this.tbPassword.Location = new System.Drawing.Point(188, 187);
-            this.tbPassword.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbPassword.Margin = new System.Windows.Forms.Padding(6);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(196, 31);
             this.tbPassword.TabIndex = 7;
@@ -157,7 +159,7 @@ namespace AsterNET.WinForm
             // tbPort
             // 
             this.tbPort.Location = new System.Drawing.Point(188, 87);
-            this.tbPort.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.tbPort.Margin = new System.Windows.Forms.Padding(6);
             this.tbPort.Name = "tbPort";
             this.tbPort.Size = new System.Drawing.Size(196, 31);
             this.tbPort.TabIndex = 3;
@@ -172,15 +174,35 @@ namespace AsterNET.WinForm
             this.listBox1.Size = new System.Drawing.Size(899, 229);
             this.listBox1.TabIndex = 3;
             // 
+            // txtExtension
+            // 
+            this.txtExtension.Location = new System.Drawing.Point(617, 39);
+            this.txtExtension.Name = "txtExtension";
+            this.txtExtension.Size = new System.Drawing.Size(285, 31);
+            this.txtExtension.TabIndex = 4;
+            this.txtExtension.TextChanged += new System.EventHandler(this.txtExtension_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(449, 39);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 25);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Extension";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 556);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtExtension);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
@@ -190,6 +212,7 @@ namespace AsterNET.WinForm
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
@@ -207,6 +230,8 @@ namespace AsterNET.WinForm
 		private System.Windows.Forms.Button btnConnect;
 		private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox txtExtension;
+        private System.Windows.Forms.Label label1;
     }
 }
 
