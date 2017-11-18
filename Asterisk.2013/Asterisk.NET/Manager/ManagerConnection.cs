@@ -33,7 +33,7 @@ namespace AsterNET.Manager
 	public delegate void BridgeEventHandler(object sender, Event.BridgeEvent e);
 	public delegate void CdrEventHandler(object sender, Event.CdrEvent e);
 	public delegate void DBGetResponseEventHandler(object sender, Event.DBGetResponseEvent e);
-	public delegate void DialEventHandler(object sender, Event.DialEvent e);
+	public delegate void DialBeginEventHandler(object sender, Event.DialBeginEvent e);
 	public delegate void DTMFEventHandler(object sender, Event.DTMFEvent e);
 	public delegate void DNDStateEventHandler(object sender, Event.DNDStateEvent e);
 	public delegate void ExtensionStatusEventHandler(object sender, Event.ExtensionStatusEvent e);
@@ -235,7 +235,7 @@ namespace AsterNET.Manager
 		/// <summary>
 		/// A Dial is triggered whenever a phone attempts to dial someone.<br/>
 		/// </summary>
-		public event DialEventHandler Dial;
+		public event DialBeginEventHandler DialBegin;
 		public event DTMFEventHandler DTMF;
 		/// <summary>
 		/// A DNDStateEvent is triggered by the Zap channel driver when a channel enters or leaves DND (do not disturb) state.
@@ -540,7 +540,7 @@ namespace AsterNET.Manager
 			Helper.RegisterEventHandler(registeredEventHandlers, 12, typeof(CdrEvent));
 
 			Helper.RegisterEventHandler(registeredEventHandlers, 14, typeof(DBGetResponseEvent));
-			Helper.RegisterEventHandler(registeredEventHandlers, 15, typeof(DialEvent));
+			Helper.RegisterEventHandler(registeredEventHandlers, 15, typeof(DialBeginEvent));
 
             Helper.RegisterEventHandler(registeredEventHandlers, 16, typeof(MeetmeMuteEvent));
 
@@ -807,9 +807,9 @@ namespace AsterNET.Manager
 						}
 						break;
 					case 15:
-						if (Dial != null)
+						if (DialBegin != null)
 						{
-							Dial(this, (DialEvent)e);
+							DialBegin(this, (DialBeginEvent)e);
 							return;
 						}
 						break;
