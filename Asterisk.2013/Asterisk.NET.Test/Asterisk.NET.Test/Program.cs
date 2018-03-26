@@ -286,17 +286,17 @@ Ctrl-C to exit");
 			//	Don't answer on SIP/4012 and call must redirect to SIP/4010 (to voicemail really)
 			//	Dial event used to define redirect channel
 
-			Console.WriteLine("Redirect Call from " + ORIGINATE_CHANNEL + " to " + ORIGINATE_EXTRA_CHANNEL + " or press ESC.");
-			// Wait for Dial Event from ORIGINATE_CHANNEL
-			DialEventHandler de = new DialEventHandler(dam_Dial);
-			manager.Dial += de;
-			while (transferChannel == null)
-			{
-				System.Threading.Thread.Sleep(100);
-				if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
-					break;
-			}
-			manager.Dial -= de;
+			//Console.WriteLine("Redirect Call from " + ORIGINATE_CHANNEL + " to " + ORIGINATE_EXTRA_CHANNEL + " or press ESC.");
+			//// Wait for Dial Event from ORIGINATE_CHANNEL
+			//DialBeginEvent de = new DialBeginEventHandler(dam_Dial);
+			//manager.DialBegin += de;
+			//while (transferChannel == null)
+			//{
+			//	System.Threading.Thread.Sleep(100);
+			//	if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
+			//		break;
+			//}
+			//manager.DialBegin -= de;
 
 			// Now send Redirect action
 			RedirectAction ra = new RedirectAction();

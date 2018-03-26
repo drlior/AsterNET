@@ -34,7 +34,8 @@ namespace AsterNET.Manager
 	public delegate void CdrEventHandler(object sender, Event.CdrEvent e);
 	public delegate void DBGetResponseEventHandler(object sender, Event.DBGetResponseEvent e);
 	public delegate void DialBeginEventHandler(object sender, Event.DialBeginEvent e);
-	public delegate void DTMFEventHandler(object sender, Event.DTMFEvent e);
+    public delegate void DialStateEventHandler(object sender, Event.DialStateEvent e);
+    public delegate void DTMFEventHandler(object sender, Event.DTMFEvent e);
 	public delegate void DNDStateEventHandler(object sender, Event.DNDStateEvent e);
 	public delegate void ExtensionStatusEventHandler(object sender, Event.ExtensionStatusEvent e);
 	public delegate void HangupEventHandler(object sender, Event.HangupEvent e);
@@ -233,10 +234,17 @@ namespace AsterNET.Manager
 		public event CdrEventHandler Cdr;
 		public event DBGetResponseEventHandler DBGetResponse;
 		/// <summary>
-		/// A Dial is triggered whenever a phone attempts to dial someone.<br/>
+		/// A DialBegin is triggered whenever a phone attempts to dial someone.<br/>
 		/// </summary>
 		public event DialBeginEventHandler DialBegin;
-		public event DTMFEventHandler DTMF;
+
+        /// <summary>
+		/// A DialState is triggered whenever a phone attempts to dial someone.<br/>
+		/// </summary>
+		public event DialStateEventHandler DialState;
+
+
+        public event DTMFEventHandler DTMF;
 		/// <summary>
 		/// A DNDStateEvent is triggered by the Zap channel driver when a channel enters or leaves DND (do not disturb) state.
 		/// </summary>
