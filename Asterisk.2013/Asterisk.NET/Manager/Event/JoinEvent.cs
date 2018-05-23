@@ -4,9 +4,9 @@ namespace AsterNET.Manager.Event
     ///     A JoinEvent is triggered when a channel joines a queue.<br />
     ///     It is implemented in apps/app_queue.c
     /// </summary>
-    public class JoinEvent : QueueEvent
+    public class QueueCallerJoinEvent : QueueEvent
     {
-        public JoinEvent(ManagerConnection source)
+        public QueueCallerJoinEvent(ManagerConnection source)
             : base(source)
         {
         }

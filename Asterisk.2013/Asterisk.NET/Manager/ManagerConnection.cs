@@ -41,7 +41,7 @@ namespace AsterNET.Manager
 	public delegate void HangupEventHandler(object sender, Event.HangupEvent e);
 	public delegate void HoldedCallEventHandler(object sender, Event.HoldedCallEvent e);
 	public delegate void HoldEventHandler(object sender, Event.HoldEvent e);
-	public delegate void JoinEventHandler(object sender, Event.JoinEvent e);
+	public delegate void QueueCallerJoinEventHandler(object sender, Event.QueueCallerJoinEvent e);
 	public delegate void LeaveEventHandler(object sender, Event.LeaveEvent e);
 	public delegate void LinkEventHandler(object sender, Event.LinkEvent e);
 	public delegate void LogChannelEventHandler(object sender, Event.LogChannelEvent e);
@@ -268,7 +268,7 @@ namespace AsterNET.Manager
 		/// <summary>
 		/// A Join is triggered when a channel joines a queue.<br/>
 		/// </summary>
-		public event JoinEventHandler Join;
+		public event QueueCallerJoinEventHandler QueueCallerJoin;
 		/// <summary>
 		/// A Leave is triggered when a channel leaves a queue.<br/>
 		/// </summary>
@@ -557,7 +557,7 @@ namespace AsterNET.Manager
 			Helper.RegisterEventHandler(registeredEventHandlers, 19, typeof(HangupEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 20, typeof(HoldedCallEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 21, typeof(HoldEvent));
-			Helper.RegisterEventHandler(registeredEventHandlers, 22, typeof(JoinEvent));
+			Helper.RegisterEventHandler(registeredEventHandlers, 22, typeof(QueueCallerJoinEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 23, typeof(LeaveEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 24, typeof(LinkEvent));
 			Helper.RegisterEventHandler(registeredEventHandlers, 25, typeof(LogChannelEvent));
@@ -857,9 +857,9 @@ namespace AsterNET.Manager
 						}
 						break;
 					case 22:
-						if (Join != null)
+						if (QueueCallerJoin != null)
 						{
-							Join(this, (JoinEvent)e);
+                            QueueCallerJoin(this, (QueueCallerJoinEvent)e);
 							return;
 						}
 						break;
