@@ -1,5 +1,6 @@
 namespace AsterNET.Manager.Event
 {
+
 	/// <summary>
 	/// A dial event is triggered whenever a phone attempts to dial someone.<br/>
 	/// This event is implemented in apps/app_dial.c.<br/>
@@ -7,7 +8,8 @@ namespace AsterNET.Manager.Event
 	/// </summary>
 	public class DialStateEvent : ManagerEvent
 	{
-		private string subEvent;
+        //
+        private string subEvent;
 		private string destination;
 		private string callerId;
 		private string callerIdNum;
