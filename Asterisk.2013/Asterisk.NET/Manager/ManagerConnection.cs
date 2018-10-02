@@ -65,7 +65,7 @@ namespace AsterNET.Manager
 	public delegate void QueueEntryEventHandler(object sender, Event.QueueEntryEvent e);
 	public delegate void QueueMemberAddedEventHandler(object sender, Event.QueueMemberAddedEvent e);
 	public delegate void QueueMemberEventHandler(object sender, Event.QueueMemberEvent e);
-	public delegate void QueueMemberPausedEventHandler(object sender, Event.QueueMemberPauseEvent e);
+	public delegate void QueueMemberPauseEventHandler(object sender, Event.QueueMemberPauseEvent e);
 	public delegate void QueueMemberRemovedEventHandler(object sender, Event.QueueMemberRemovedEvent e);
 	public delegate void QueueMemberStatusEventHandler(object sender, Event.QueueMemberStatusEvent e);
 	public delegate void QueueParamsEventHandler(object sender, Event.QueueParamsEvent e);
@@ -388,9 +388,9 @@ namespace AsterNET.Manager
 		/// </summary>
 		public event QueueMemberEventHandler QueueMember;
 		/// <summary>
-		/// A QueueMemberPausedEvent is triggered when a queue member is paused or unpaused.
+		/// A QueueMemberPauseEvent is triggered when a queue member is paused or unpaused.
 		/// </summary>
-		public event QueueMemberPausedEventHandler QueueMemberPaused;
+		public event QueueMemberPauseEventHandler QueueMemberPause;
 		/// <summary>
 		/// A QueueMemberRemovedEvent is triggered when a queue member is removed from a queue.
 		/// </summary>
@@ -1029,9 +1029,9 @@ namespace AsterNET.Manager
 						}
 						break;
 					case 45:
-						if (QueueMemberPaused != null)
+						if (QueueMemberPause != null)
 						{
-							QueueMemberPaused(this, (QueueMemberPauseEvent)e);
+							QueueMemberPause(this, (QueueMemberPauseEvent)e);
 							return;
 						}
 						break;
@@ -1483,8 +1483,10 @@ namespace AsterNET.Manager
 			} while (string.IsNullOrEmpty(protocolIdentifier));
 
 			ChallengeAction challengeAction = new ChallengeAction();
-			Response.ManagerResponse response = SendAction(challengeAction, defaultResponseTimeout * 2);
-			if (response is ChallengeResponse)
+
+            //Response.ManagerResponse response = SendAction(challengeAction, defaultResponseTimeout * 2);
+            Response.ManagerResponse response = SendAction(challengeAction, timeout);
+            if (response is ChallengeResponse)
 			{
 				ChallengeResponse challengeResponse = (ChallengeResponse)response;
 				string key, challenge = challengeResponse.Challenge;
@@ -1584,7 +1586,7 @@ namespace AsterNET.Manager
 						return AsteriskVersion.ASTERISK_1_2;
 				}
 			}
-			return AsteriskVersion.ASTERISK_1_0;
+			return AsteriskVersion.ASTERISK_15;
 		}
 
 		#endregion
@@ -1878,16 +1880,16 @@ namespace AsterNET.Manager
 		{
 			return SendAction(action, defaultResponseTimeout);
 		}
-		#endregion
+        #endregion
 
-		#region SendAction(action, timeout)
-		/// <summary>
-		/// Send action ans with timeout (milliseconds)
-		/// </summary>
-		/// <param name="action">action to send</param>
-		/// <param name="timeout">timeout in milliseconds</param>
-		/// <returns></returns>
-		public Response.ManagerResponse SendAction(ManagerAction action, int timeOut)
+        #region SendAction(action, timeout)
+        /// <summary>
+        /// Send action ans with timeout (milliseconds)
+        /// </summary>
+        /// <param name="action">action to send</param>
+        /// <param name="timeOut">timeout in milliseconds</param>
+        /// <returns></returns>
+        public Response.ManagerResponse SendAction(ManagerAction action, int timeOut=100000)
 		{
 			AutoResetEvent autoEvent = new AutoResetEvent(false);
 			ResponseHandler handler = new ResponseHandler(action, autoEvent);

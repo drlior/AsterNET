@@ -1,7 +1,7 @@
 namespace AsterNET.Manager.Event
 {
 	/// <summary>
-	/// A QueueMemberPausedEvent is triggered when a queue member is paused or unpaused.<br/>
+	/// A QueueMemberPauseEvent is triggered when a queue member is paused or unpaused.<br/>
 	/// It is implemented in apps/app_queue.c.<br/>
 	/// Available since Asterisk 1.2
 	/// </summary>
