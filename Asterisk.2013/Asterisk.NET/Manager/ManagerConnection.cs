@@ -1543,11 +1543,17 @@ namespace AsterNET.Manager
 		protected internal AsteriskVersion determineVersion()
 		{
 			Response.ManagerResponse response;
-			response = SendAction(new Action.CommandAction("core show version"), defaultResponseTimeout * 2);
-			if (response is Response.CommandResponse)
+			response = SendAction(new Action.CommandAction("core show version"), 1000000);
+			if (response is Response.ManagerResponse)
 			{
-				foreach (string line in ((Response.CommandResponse)response).Result)
-				{
+                var my_lines = (response.Attributes.Values).GetEnumerator();   // new System.Collections.Generic.Mscorlib_DictionaryValueCollectionDebugView<string, string>(response.Attributes.Values).Items[0]
+                my_lines.MoveNext();
+                var line = my_lines.Current;
+
+
+
+                //foreach (string line in ((Response.CommandResponse)response).Result)
+				//{
 					foreach (Match m in Common.ASTERISK_VERSION.Matches(line))
 					{
 						if (m.Groups.Count >= 2)
@@ -1567,12 +1573,16 @@ namespace AsterNET.Manager
 								return Manager.AsteriskVersion.ASTERISK_12;
                             else if (version.StartsWith("13."))
                                 return Manager.AsteriskVersion.ASTERISK_13;
-							else
+                            else if (version.StartsWith("14."))
+                                return Manager.AsteriskVersion.ASTERISK_14;
+                            else if (version.StartsWith("15."))
+                                return Manager.AsteriskVersion.ASTERISK_15;
+                        else
 								throw new ManagerException("Unknown Asterisk version " + version);
 						}
 					}
 				}
-			}
+			//}
 
 			Response.ManagerResponse showVersionFilesResponse = SendAction(new Action.CommandAction("show version files"), defaultResponseTimeout * 2);
 			if (showVersionFilesResponse is Response.CommandResponse)
